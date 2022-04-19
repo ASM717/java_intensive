@@ -13,15 +13,15 @@ public class Program {
             scanner.close();
             printError();
         }
-        int sum = 0;
+
         int input = scanner.nextInt();
         int cofCounter = 0;
         for (; input != 42; input = scanner.nextInt()) {
-
             if (!scanner.hasNextInt()) {
                 scanner.close();
                 printError();
             }
+            int sum = 0;
             for (; input > 0; input = input / 10)
                 sum += input % 10;
             if (checkPrimeSum(sum))

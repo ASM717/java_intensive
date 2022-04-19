@@ -10,11 +10,11 @@ public class Program {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         long weekKeeping = 0;
-        int cntWeek = 0;
+        int cntWeek = 1;
         String line;
 
         while (!(line = scanner.nextLine()).equals("42")) {
-            if (!line.equals("Week " + (++cntWeek)) || cntWeek > 18) {
+            if (!line.equals(("Week " + cntWeek)) || cntWeek > 18) {
                 scanner.close();
                 printError();
             }
@@ -36,6 +36,7 @@ public class Program {
             for (int i = 0; i < cntWeek; i++)
                 grade = grade * 10;
             weekKeeping += grade;
+            cntWeek++;
         }
         scanner.close();
         printStatistic(weekKeeping, cntWeek);
@@ -47,11 +48,11 @@ public class Program {
     }
 
     private static void printStatistic(long weekKeeping, int cntWeek) {
-        if (cntWeek > 18)
+        if (cntWeek > 19)
             System.out.println();
         weekKeeping /= 10;
         int i = 1;
-        while (i <= cntWeek) {
+        while (i < cntWeek) {
             System.out.print("Week " + i + (i < 10 ? "  " : " "));
             long res = weekKeeping % 10;
             while (res > 0) {
