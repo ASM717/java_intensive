@@ -10,14 +10,14 @@ public class TransactionsLinkedList implements TransactionsList {
             this.transaction = transaction;
         }
 
-        public void insertBefore(Node end) {
+        public void insertLastElem(Node end) {
             prev = end.prev;
             prev.next = this;
             end.prev = this;
             next = end;
         }
 
-        public void cut() {
+        public void cutElem() {
             next.prev = prev;
             prev.next = next;
             next = null;
@@ -45,7 +45,7 @@ public class TransactionsLinkedList implements TransactionsList {
 
     @Override
     public void add(Transaction transaction) {
-        (new Node(transaction)).insertBefore(end);
+        (new Node(transaction)).insertLastElem(end);
         count++;
     }
 
@@ -54,7 +54,7 @@ public class TransactionsLinkedList implements TransactionsList {
         Node node = start.next;
         while (node != end) {
             if (uuid.equals(node.getTransaction().getIdentifier().toString())) {
-                node.cut();
+                node.cutElem();
                 count--;
                 return node.getTransaction();
             }

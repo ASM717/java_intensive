@@ -1,7 +1,5 @@
 package ex01;
 
-import ex00.User;
-
 import java.util.UUID;
 
 public class Transaction {
@@ -27,12 +25,12 @@ public class Transaction {
     }
 
     private UUID identifier;
-    private ex00.User recipient;
-    private ex00.User sender;
+    private User recipient;
+    private User sender;
     private TransferCategory transferCategory;
     private Integer amount;
 
-    public Transaction(ex00.User recipient, ex00.User sender, TransferCategory transferCategory, Integer amount) {
+    public Transaction(User recipient, User sender, TransferCategory transferCategory, Integer amount) {
         identifier = UUID.randomUUID();
         this.recipient = recipient;
         this.sender = sender;
@@ -40,8 +38,8 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public static Transaction createTransaction(ex00.User recipient,
-                                                ex00.User sender,
+    public static Transaction createTransaction(User recipient,
+                                                User sender,
                                                 TransferCategory transferCategory,
                                                 Integer amount) {
         if ((transferCategory == TransferCategory.CREDIT && amount < 0 && recipient.getBalance() >= (-amount))
@@ -60,7 +58,7 @@ public class Transaction {
             this.identifier = identifier;
     }
 
-    public ex00.User getRecipient() {
+    public User getRecipient() {
         return recipient;
     }
 

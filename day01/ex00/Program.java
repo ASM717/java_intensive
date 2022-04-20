@@ -28,5 +28,8 @@ public class Program {
         transaction1 = Transaction.createTransaction(john, mike, Transaction.TransferCategory.CREDIT, 200000);
         System.out.println(transaction1);
 
+        mike.setBalance(200);
+        System.out.println(mike.getBalance());
+
     }
 }
