@@ -1,0 +1,6 @@
+CREATE SCHEMA IF NOT EXISTS schema;
+CREATE TABLE IF NOT EXISTS schema.product(
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(150),
+    price DECIMAL(10,2)
+);
