@@ -1,4 +1,3 @@
-.DS_Store
-/src/test/
-/Chat.iml
+/.idea/
 /target/
+/src/test/

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NotSavedSubEntityException {
         HikariDataSource ds = new HikariDataSource();
         ds.setJdbcUrl("jdbc:postgresql://localhost:5432/amuriel");
         ds.setUsername("amuriel");

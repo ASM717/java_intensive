@@ -24,17 +24,26 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
         try {
             Connection connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
-            String idReq = "SELECT * FROM chat.message WHERE id = " + id;
-            ResultSet resultSet = statement.executeQuery(idReq);
-            resultSet.next();
-            User user = new User(5L, "user", "user", null, null);
-            Chatroom chatroom = new Chatroom(5L, "chatroom", null, null);
-            return Optional.of(new Message((long) resultSet.getInt(1), user ,
-                    chatroom, resultSet.getString("message"),
-                    LocalDateTime.of(2022, 4, 26, 15, 1)));
+            String query = "SELECT chat.message.id, chat.message.sender, chat.users.login, chat.users.password, " +
+                    "chat.message.room_id, chat.room.chat_name, chat.message.message , chat.message.time " +
+                    "FROM chat.message " +
+                    "join chat.users on chat.message.sender = chat.users.id " +
+                    "join chat.room on chat.message.room_id = chat.room.id " +
+                    "where chat.message.id =" + id;
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                User user = new User(resultSet.getLong("sender"), resultSet.getString("login"),
+                        resultSet.getString("password"), null, null);
+                Chatroom chatroom = new Chatroom(resultSet.getLong("room_id"),
+                        resultSet.getString("chat_name"), null, null);
+                LocalDateTime dateTime = resultSet.getTimestamp("time").toLocalDateTime();
+                return Optional.of(new Message((long) resultSet.getInt(1), user ,
+                        chatroom, resultSet.getString("message"), dateTime));
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
+        return Optional.empty();
     }
 }
